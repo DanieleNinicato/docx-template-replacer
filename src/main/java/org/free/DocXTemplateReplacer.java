@@ -25,6 +25,7 @@ public class DocXTemplateReplacer {
     var outputFile = Paths.get("C:\\Development\\own\\spire-free\\src\\main\\resources\\saved.docx");
 
     mailMerge(template, outputFile);
+    System.out.println("Done");
   }
 
   public static File mailMerge(Path template, Path outputFile) throws Exception {
