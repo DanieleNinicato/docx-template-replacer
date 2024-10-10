@@ -98,7 +98,7 @@ public class DocXTemplateReplacer {
     log.info(marshaltoString(foSettings.getFopConfig(), getFopConfigContext()));
     FopFactoryBuilder fopFactoryBuilder = FORendererApacheFOP.getFopFactoryBuilder(foSettings);
     FopFactory fopFactory = fopFactoryBuilder.build();
-    FOUserAgent foUserAgent = FORendererApacheFOP.getFOUserAgent(foSettings, fopFactory);
+    FORendererApacheFOP.getFOUserAgent(foSettings, fopFactory);
 
     OutputStream os = new FileOutputStream(new File("C:\\Development\\own\\spire-free\\src\\main\\resources\\saved.pdf"));
 
