@@ -1,4 +1,4 @@
-package org.free;
+package org.docx;
 
 import org.apache.commons.compress.archivers.examples.Archiver;
 import org.apache.commons.compress.archivers.examples.Expander;
