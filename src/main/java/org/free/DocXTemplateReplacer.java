@@ -3,14 +3,10 @@ package org.free;
 import org.apache.commons.compress.archivers.examples.Archiver;
 import org.apache.commons.compress.archivers.examples.Expander;
 import org.apache.commons.io.FileUtils;
-import org.apache.fop.apps.FOUserAgent;
-import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.FopFactoryBuilder;
 import org.docx4j.Docx4J;
 import org.docx4j.convert.out.FOSettings;
 import org.docx4j.convert.out.fo.renderers.FORendererApacheFOP;
 import org.docx4j.fonts.BestMatchingMapper;
-import org.docx4j.fonts.Mapper;
 import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.slf4j.Logger;
@@ -19,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -89,18 +84,22 @@ public class DocXTemplateReplacer {
     PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXTemplateReplacer.class.getClassLoader().getResource("fonts/FlandersArtSans_Italic/FlandersArtSans-Italic.otf")).toURI());
 
     // Load the .docx file
-    WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(outputPdf);
+    var wordMLPackage = WordprocessingMLPackage.load(outputPdf);
 
-    Mapper fontMapper = new BestMatchingMapper();
+    var fontMapper = new BestMatchingMapper();
     wordMLPackage.setFontMapper(fontMapper);
 
-    FOSettings foSettings = new FOSettings(wordMLPackage);
-    log.info(marshaltoString(foSettings.getFopConfig(), getFopConfigContext()));
-    FopFactoryBuilder fopFactoryBuilder = FORendererApacheFOP.getFopFactoryBuilder(foSettings);
-    FopFactory fopFactory = fopFactoryBuilder.build();
+    var foSettings = new FOSettings(wordMLPackage);
+
+    if (log.isDebugEnabled()) {
+      log.debug(marshaltoString(foSettings.getFopConfig(), getFopConfigContext()));
+    }
+
+    var fopFactoryBuilder = FORendererApacheFOP.getFopFactoryBuilder(foSettings);
+    var fopFactory = fopFactoryBuilder.build();
     FORendererApacheFOP.getFOUserAgent(foSettings, fopFactory);
 
-    OutputStream os = new FileOutputStream(new File("C:\\Development\\own\\spire-free\\src\\main\\resources\\saved.pdf"));
+    var os = new FileOutputStream(new File("C:\\Development\\own\\spire-free\\src\\main\\resources\\saved.pdf"));
 
     Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
 
