@@ -24,9 +24,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.docx4j.XmlUtils.marshaltoString;
 import static org.docx4j.jaxb.Context.getFopConfigContext;
 
-public class DocXTemplateReplacer {
+public class DocXUtil {
 
-  private static Logger log = LoggerFactory.getLogger(DocXTemplateReplacer.class);
+  private static final Logger log = LoggerFactory.getLogger(DocXUtil.class);
 
   public static void main(String[] args) throws Exception {
     var template = Paths.get("C:\\Development\\own\\spire-free\\src\\main\\resources\\template.docx");
@@ -78,10 +78,10 @@ public class DocXTemplateReplacer {
   }
 
   public static void convertToPdf(File outputPdf) throws Exception {
-    PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXTemplateReplacer.class.getClassLoader().getResource("fonts/FlandersArtSans_Bold/FlandersArtSans-Bold.otf")).toURI());
-    PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXTemplateReplacer.class.getClassLoader().getResource("fonts/FlandersArtSans_Regular/FlandersArtSans-Regular.otf")).toURI());
-    PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXTemplateReplacer.class.getClassLoader().getResource("fonts/FlandersArtSerifMedium/FlandersArtSerif-Medium.ttf")).toURI());
-    PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXTemplateReplacer.class.getClassLoader().getResource("fonts/FlandersArtSans_Italic/FlandersArtSans-Italic.otf")).toURI());
+    PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXUtil.class.getClassLoader().getResource("fonts/FlandersArtSans_Bold/FlandersArtSans-Bold.otf")).toURI());
+    PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXUtil.class.getClassLoader().getResource("fonts/FlandersArtSans_Regular/FlandersArtSans-Regular.otf")).toURI());
+    PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXUtil.class.getClassLoader().getResource("fonts/FlandersArtSerifMedium/FlandersArtSerif-Medium.ttf")).toURI());
+    PhysicalFonts.addPhysicalFont(Objects.requireNonNull(DocXUtil.class.getClassLoader().getResource("fonts/FlandersArtSans_Italic/FlandersArtSans-Italic.otf")).toURI());
 
     // Load the .docx file
     var wordMLPackage = WordprocessingMLPackage.load(outputPdf);
